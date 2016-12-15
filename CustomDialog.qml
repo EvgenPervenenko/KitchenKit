@@ -16,8 +16,7 @@ Dialog{
     }
     
     contentItem: Rectangle{
-        width: 600
-        height: 500
+        anchors.fill: parent
         color: "#FAFAFA"
         
         // Область для сообщения диалогового окна
@@ -30,12 +29,14 @@ Dialog{
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: row.top
+            anchors.margins: 20
+            
             color: "#f7f7f7"  // Задаём цвет области
             
             // Задаём сообщение диалогового окна
             Row {
                 id: topLayout
-                x: 20; y: 0; height: recipeImage.height; width: parent.width - 40
+                x: 0; y: 0; height: recipeImage.height; width: parent.width - 40
                 spacing: 10
                 
                 Image {
@@ -56,13 +57,13 @@ Dialog{
             
             Row{
                 id: rowDivider
-                x: 20; y: topLayout.y + topLayout.height; height: 20; width: parent.width - 40
+                x: 0; y: topLayout.y + topLayout.height; height: 20; width: parent.width - 40
             }
             
             Grid{
                 id: details
                 
-                x: 20; y: rowDivider.y + rowDivider.height; height: 20; width: parent.width - 40
+                x: 0; y: rowDivider.y + rowDivider.height; height: 20; width: parent.width - 40
                 columns: 4
                 spacing: 6
                 
@@ -85,7 +86,7 @@ Dialog{
             Row
             {
                 id: dividerRow
-                x: 20; y: details.y + details.height; 
+                x: 0; y: details.y + details.height; 
                 height: 2; width: parent.width - 40
                 
                 Rectangle {
@@ -98,7 +99,7 @@ Dialog{
             Row
             {
                 id: methodRow
-                x: 20; y: dividerRow.y + dividerRow.height + parent.height / 2; 
+                x: 0; y: dividerRow.y + dividerRow.height + parent.height / 2; 
                 height: 20; width: parent.width - 40
                 
                 Text {
@@ -110,7 +111,7 @@ Dialog{
             
             Row{
                 id: processingRow
-                x: 20; y: methodRow.y + methodRow.height; 
+                x: 0; y: methodRow.y + methodRow.height; 
                 height: parent.height / 2 - methodRow.height; 
                 width: parent.width - 40
                 

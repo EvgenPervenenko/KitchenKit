@@ -2,7 +2,10 @@ QT += qml quick
 
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    ListModel.cpp \
+    ListElement.cpp \
+    Sender.cpp
 
 RESOURCES += qml.qrc
 
@@ -11,3 +14,8 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    ListModel.h \
+    ListElement.h \
+    Sender.h

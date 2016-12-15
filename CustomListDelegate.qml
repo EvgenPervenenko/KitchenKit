@@ -14,14 +14,16 @@ Component {
         // Rect делегата
         Rectangle {
             id: background
-            x: 2; y: 2; width: parent.width - x * 2; height: parent.height - y * 2
+            x: 2; y: 2; width: parent.width - x * 2; 
+            height: parent.height - y * 2
             color: "white"
             //                radius: 5
             
             //Строка с названием блюда и порядковым номером
             Grid {
                 id: topLayout
-                x: background.x; y: background.y; height: recipe.height / 2; width: parent.width
+                x: background.x; y: background.y; 
+                height: recipe.height / 2; width: parent.width
                 columns: 4
                 spacing: 10
                 
@@ -29,7 +31,9 @@ Component {
                     id: recipeIndex
                     width: indexText.width; height: topLayout.height
                     
-                    Text{ id: indexText; anchors.centerIn: parent; text : count ; font.bold: true; font.pointSize: 14 }
+                    Text{ id: indexText; anchors.centerIn: parent; 
+                        text : model.data[index].count ; font.bold: true; 
+                        font.pointSize: 14 }
                 }
                 
                 Item{
@@ -39,7 +43,7 @@ Component {
                     Text {
                         id: titleText
                         anchors.centerIn: parent
-                        text: title
+                        text: model.data[index].title
                         font.bold: false; font.pointSize: 12
                     }
                 }
@@ -51,7 +55,7 @@ Component {
                     Text {
                         id: massText
                         anchors.centerIn: parent
-                        text: mass
+                        text: model.data[index].mass
                         font.bold: false; font.pointSize: 12
                     }
                 }
@@ -66,7 +70,7 @@ Component {
                         id: startTimeText
                         anchors.top: parent.top
                         anchors.right: parent.right
-                        text: startTime
+                        text: model.data[index].startTime
                         font.bold: false; font.pointSize: 8
                     }
                 }
@@ -121,7 +125,10 @@ Component {
             anchors.top: parent.top
             anchors.right: parent.right
             height: topLayout.height
-            onClicked: {detailsDialog.show(title, picture, method, ingredients)}
+            onClicked: {detailsDialog.show(model.data[index].title, 
+                                           model.data[index].picture, 
+                                           model.data[index].method, 
+                                           model.data[index].ingredients)}
         }
         
         //Area для старта задачи
@@ -130,13 +137,13 @@ Component {
             anchors.bottom: parent.bottom
             anchors.right: parent.right
             height: buttonGrid.height
-            onClicked: {startCooking(cookingTime)}
+            onClicked: {startCooking(model.data[index].cookingTime)}
         }
         
         //Диалог с рецептом
         CustomDialog{
             id: detailsDialog
-            onStart: recipe.startCooking(cookingTime)
+            onStart: recipe.startCooking(model.data[index].cookingTime)
         }
         
         //Таймер для отсчета момента готовности блюда
@@ -187,5 +194,4 @@ Component {
             return hours+':'+minutes+':'+seconds;
         }
     }
-    //! [3]
 }
