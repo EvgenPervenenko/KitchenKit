@@ -6,8 +6,9 @@ import QtQuick.Dialogs 1.2
 Dialog{
     id: detailsDialog
     
-    width: 600// for android commit
-    height: 500// for android commit
+    width: 600// при проверке на android закоментировать
+    height: 500// при проверке на android закоментировать
+    //Сигнал нажатия кнопки старт
     signal start()
     
     Component.onCompleted: {
@@ -41,7 +42,7 @@ Dialog{
                     id: recipeImage
                     width: 50; height: 50
                 }
-                //! [1]
+                
                 Column {
                     width: parent.width - recipeImage.width - 20; height: recipeImage.height
                     spacing: 5
@@ -89,7 +90,7 @@ Dialog{
                 
                 Rectangle {
                     color: "#d7d7d7"
-                    height: 2 // Устанавливаем ширину в два пикселя
+                    height: 2
                     width: parent.width
                 }
             }
@@ -120,10 +121,10 @@ Dialog{
         
         Row {
             id: row
-            height: 50 // Задаём высоту
-            width: parent.width - 40
-            // А также прибиваем строку к низу диалогового окна
             x: 20
+            height: 50 // Задаём высоту
+            // А также прибиваем строку к низу диалогового окна
+            width: parent.width - 40
             anchors.bottom: parent.bottom
             
             Button {
@@ -193,6 +194,7 @@ Dialog{
         }
     }
     
+    //Функция отображения диалога с добавлением данных по выбранному рецепту
     function show(title, recipeImg, method, ingredients){
         recipeTitle.text = title
         recipeImage.source = recipeImg
