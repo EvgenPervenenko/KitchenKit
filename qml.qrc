@@ -12,5 +12,6 @@
         <file>pics/lemonade.jpg</file>
         <file>pics/pancakes.jpg</file>
         <file>pics/vegetable-soup.jpg</file>
+        <file>CustomPopupMenu.qml</file>
     </qresource>
 </RCC>

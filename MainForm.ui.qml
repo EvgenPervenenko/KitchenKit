@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 Item {
     width: 640
     height: 480
+    property alias mouseArea1: mouseArea1
     property alias button1: button1
     property alias listView1: listView1
     
@@ -21,6 +22,12 @@ Item {
             
             ColumnLayout {
                 id: columnLayout1
+                x: 10
+                y: 10
+                anchors.rightMargin: 10
+                anchors.leftMargin: 10
+                anchors.bottomMargin: 10
+                anchors.topMargin: 10
                 anchors.fill: parent
                 
                 ListView {
@@ -51,6 +58,11 @@ Item {
                             name: "Green"
                             colorCode: "green"
                         }
+                    }
+                    
+                    MouseArea {
+                        id: mouseArea1
+                        anchors.fill: parent
                     }
                 }
                 

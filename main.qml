@@ -1,12 +1,20 @@
 import QtQuick 2.6
 import QtQuick.Controls 1.5
+import QtQuick.Window 2.0
 
 ApplicationWindow {
+    id: appWindow
     visible: true
-    width: 640
-    height: 480
+    width: Screen.desktopAvailableWidth
+    height: Screen.desktopAvailableHeight
+    property MouseArea mouseArea: MouseArea{}
     
     MainForm {
+        id:mainForm
+        Component.onCompleted: {
+            appWindow.mouseArea = mouseArea1
+        }
+        
         anchors.fill: parent
         listView1.orientation: Qt.Horizontal
         listView1.spacing: 10
@@ -18,6 +26,11 @@ ApplicationWindow {
             height: parent.height
             width : 310
             color: "#E2E2E2"
+            signal clicked(var x, var y)
+            
+//            Component.onCompleted:{
+//                appWindow.mouseArea.clicked.connect( viewRectangle.onClicked )
+//            }
             
             // Список заказов
             ListView {
@@ -28,7 +41,14 @@ ApplicationWindow {
                 anchors.fill: parent
                 anchors.margins: 10
                 model: listViewModel
-                delegate: CustomListDelegate{}
+                CustomListDelegate{
+                    id: customDelegate
+                    
+//                    Component.onCompleted: {
+//                        viewRectangle.clicked.connect( customDelegate.globalClick )
+//                    }
+                }
+                delegate: customDelegate.component
                 spacing: 10
                 
                 header: Rectangle{
@@ -73,6 +93,11 @@ ApplicationWindow {
                         viewRectangle.height = listViewHeight
                     }
                 }
+                
+            }
+            
+            function onClicked(){
+                clicked( appWindow.mouseArea.mouseX, appWindow.mouseArea.mouseY )
             }
         }
         
@@ -96,5 +121,8 @@ ApplicationWindow {
         function addOrder( modelForView ){
             mainModel.append( ( {listViewModel: modelForView} ) )
         }
+        
+        //чтобы не перехватывались клики
+        mouseArea1.visible: false
     }
 }

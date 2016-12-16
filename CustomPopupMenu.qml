@@ -1,14 +1,18 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
-import QtQuick.Controls.Styles 1.4
-import QtQuick.Dialogs 1.2
+import QtQuick.Controls 2.0
 import QtQuick.Window 2.0
+import QtQuick.Controls.Styles 1.4
 
-Dialog{
+Popup {
     id: detailsDialog
+    modal: true
+    focus: true
+    x: 0//(Screen.desktopAvailableWidth - width) / 2
+    y: 0//Screen.desktopAvailableHeight / 6
+    width: Screen.desktopAvailableWidth//Math.min(Screen.desktopAvailableWidth, Screen.desktopAvailableHeight) / 3 * 2
+    height: Screen.desktopAvailableHeight/* * 2 / 3*/
+    contentHeight: contentRect.height
     
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
     //Сигнал нажатия кнопки старт
     signal start()
     
@@ -17,6 +21,7 @@ Dialog{
     }
     
     contentItem: Rectangle{
+        id: contentRect
         anchors.fill: parent
         color: "#f7f7f7"
         
@@ -138,19 +143,17 @@ Dialog{
                 width: parent.width / 2 - 10
                 
                 // Стилизуем кнопку
-                style: ButtonStyle {
-                    background: Rectangle {
+                background: Rectangle {
                         color: "#C62827"
                         border.width: 0
                     }
-                    
-                    label: Text {
-                        text: qsTr("Cancel")
-                        color: "white"
-                        // Устанавливаем текст в центр кнопки
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                    }
+                
+                contentItem: Text {
+                    text: qsTr("Cancel")
+                    color: "white"
+                    // Устанавливаем текст в центр кнопки
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
                 }
                 // По нажатию кнопки закрываем диалог
                 onClicked: detailsDialog.close()
@@ -176,19 +179,17 @@ Dialog{
                 width: parent.width / 2 - 10
                 
                 // Стилизуем кнопку
-                style: ButtonStyle {
-                    background: Rectangle {
-                        color: "#FFC928"
-                        border.width: 0
-                    }
-                    
-                    label: Text {
-                        text: qsTr("Start")
-                        color: "white"
-                        // Устанавливаем текст в центр кнопки
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                    }
+                background: Rectangle {
+                    color: "#FFC928"
+                    border.width: 0
+                }
+                
+                contentItem: Text {
+                    text: qsTr("Start")
+                    color: "white"
+                    // Устанавливаем текст в центр кнопки
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
                 }
                 // По нажатию кнопки закрываем диалог
                 onClicked: detailsDialog.close()
@@ -206,7 +207,7 @@ Dialog{
         var count = 0;
         for (var k in obj) {
             if (obj.hasOwnProperty(k)) {
-               ++count;
+                ++count;
             }
         }
         
@@ -224,6 +225,11 @@ Dialog{
         
         detailsDialog.open()
     }
+    
+    function globalClick(x, y){
+//        detailsDialog.x = -x + (Screen.desktopAvailableWidth - width) / 2
+//        detailsDialog.y = -y + Screen.desktopAvailableHeight / 6
+//        detailsDialog.width = Math.min(Screen.desktopAvailableWidth, Screen.desktopAvailableHeight) / 3 * 2
+//        detailsDialog.height = Screen.desktopAvailableHeight * 2 / 3
+    }
 }
-
-
