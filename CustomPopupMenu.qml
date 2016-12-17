@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.5
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls.Styles 1.4
@@ -12,6 +12,8 @@ Popup {
     width: Screen.desktopAvailableWidth//Math.min(Screen.desktopAvailableWidth, Screen.desktopAvailableHeight) / 3 * 2
     height: Screen.desktopAvailableHeight/* * 2 / 3*/
     contentHeight: contentRect.height
+    property Item recipe: Item{}
+    property real cookingTime: 0
     
     //Сигнал нажатия кнопки старт
     signal start()
@@ -156,7 +158,9 @@ Popup {
                     horizontalAlignment: Text.AlignHCenter
                 }
                 // По нажатию кнопки закрываем диалог
-                onClicked: detailsDialog.close()
+                onClicked: {
+                    detailsDialog.close()
+                }
             }
             
             // Создаём разделитель между кнопками шириной в 2 пикселя
@@ -191,14 +195,20 @@ Popup {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                 }
-                // По нажатию кнопки закрываем диалог
-                onClicked: detailsDialog.close()
+
+                // По нажатию кнопки закрываем диалог and start cooking
+                onClicked: {
+                    detailsDialog.recipe.startCooking(detailsDialog.cookingTime)
+                    detailsDialog.close()
+                }
             }
         }
     }
     
     //Функция отображения диалога с добавлением данных по выбранному рецепту
-    function show(title, recipeImg, method, ingredients){
+    function show(title, recipeImg, method, ingredients, item, cookingTime){
+        detailsDialog.recipe = item
+        detailsDialog.cookingTime = cookingTime
         recipeTitle.text = title
         recipeImage.source = recipeImg
         methodText.text = method
@@ -210,6 +220,8 @@ Popup {
                 ++count;
             }
         }
+
+        modelForAdd.clear()
         
         for( var i in obj )
         {
@@ -222,14 +234,7 @@ Popup {
                 modelForAdd.append( { text: "0" } )
             }
         }
-        
+
         detailsDialog.open()
-    }
-    
-    function globalClick(x, y){
-//        detailsDialog.x = -x + (Screen.desktopAvailableWidth - width) / 2
-//        detailsDialog.y = -y + Screen.desktopAvailableHeight / 6
-//        detailsDialog.width = Math.min(Screen.desktopAvailableWidth, Screen.desktopAvailableHeight) / 3 * 2
-//        detailsDialog.height = Screen.desktopAvailableHeight * 2 / 3
     }
 }

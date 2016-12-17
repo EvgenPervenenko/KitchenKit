@@ -1,16 +1,14 @@
 import QtQuick 2.0
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.0
 
 // Делегат для заказа
 Item
 {
     id: customDelegate
     property Component component: recipeDelegate
-//    property CustomPopupMenu dialog: CustomPopupMenu{}
-    
+
     Component {
         id: recipeDelegate
-        
         
         //! [0]
         Item {
@@ -124,11 +122,12 @@ Item
             
             //Area для вызова диалога
             MouseArea {
+                id:dialogArea
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.right: parent.right
                 height: topLayout.height
-                onClicked: {detailsDialog.show(title, picture, method, ingredients)}
+                onClicked: {mainForm.showDialog(title, picture, method, ingredients, recipe, cookingTime)}
             }
             
             //Area для старта задачи
@@ -138,16 +137,6 @@ Item
                 anchors.right: parent.right
                 height: buttonGrid.height
                 onClicked: {startCooking(cookingTime)}
-            }
-            
-            //Диалог с рецептом
-            CustomDialog{
-                id: detailsDialog
-                onStart: recipe.startCooking(cookingTime)
-                
-                Component.onCompleted: {
-//                    customDelegate.dialog = detailsDialog
-                }
             }
             
             //Таймер для отсчета момента готовности блюда
@@ -199,9 +188,5 @@ Item
             }
         }
     }
-    
-//    function globalClick(x, y){
-//        dialog.globalClick( x, y )
-//    }
 }
 

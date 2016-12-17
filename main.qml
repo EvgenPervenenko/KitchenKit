@@ -1,5 +1,5 @@
 import QtQuick 2.6
-import QtQuick.Controls 1.5
+import QtQuick.Controls 2.0
 import QtQuick.Window 2.0
 
 ApplicationWindow {
@@ -7,17 +7,19 @@ ApplicationWindow {
     visible: true
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
-    property MouseArea mouseArea: MouseArea{}
     
     MainForm {
         id:mainForm
-        Component.onCompleted: {
-            appWindow.mouseArea = mouseArea1
+        //Диалог с рецептом
+        property CustomPopupMenu detailsDialog: CustomPopupMenu{
+            id: detailsDialog
+            visible: false
         }
-        
+
         anchors.fill: parent
         listView1.orientation: Qt.Horizontal
         listView1.spacing: 10
+
         listView1.delegate:
             Rectangle{
             id: viewRectangle
@@ -26,11 +28,6 @@ ApplicationWindow {
             height: parent.height
             width : 310
             color: "#E2E2E2"
-            signal clicked(var x, var y)
-            
-//            Component.onCompleted:{
-//                appWindow.mouseArea.clicked.connect( viewRectangle.onClicked )
-//            }
             
             // Список заказов
             ListView {
@@ -43,10 +40,6 @@ ApplicationWindow {
                 model: listViewModel
                 CustomListDelegate{
                     id: customDelegate
-                    
-//                    Component.onCompleted: {
-//                        viewRectangle.clicked.connect( customDelegate.globalClick )
-//                    }
                 }
                 delegate: customDelegate.component
                 spacing: 10
@@ -86,8 +79,8 @@ ApplicationWindow {
                         var itemHeight = root.visibleChildren[root.visibleChildren.length - 1].height
                         var itemCount = listView.model.count
                         var headerHeight = listView.headerHeight
-                        var listViewHeight = itemHeight * itemCount 
-                                + listView.spacing * (itemCount + 1) 
+                        var listViewHeight = itemHeight * itemCount
+                                + listView.spacing * (itemCount + 1)
                                 + headerHeight
                         
                         viewRectangle.height = listViewHeight
@@ -121,8 +114,10 @@ ApplicationWindow {
         function addOrder( modelForView ){
             mainModel.append( ( {listViewModel: modelForView} ) )
         }
-        
-        //чтобы не перехватывались клики
-        mouseArea1.visible: false
+
+        function showDialog(title, recipeImg, method, ingredients, item, cookingTime){
+            detailsDialog.show(title, recipeImg, method, ingredients, item, cookingTime)
+        }
     }
+
 }
