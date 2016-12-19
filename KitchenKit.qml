@@ -83,18 +83,25 @@ ApplicationWindow {
                         spacing: 10
                         
                         Text {
+                            id: orderNumber
                             width: parent.width / 2
                             renderType: Text.NativeRendering
-                            text: "№301"
+                            text: "№" + mainModel.count
                             font.bold: true; font.pointSize: 16
                         }
                         
                         Text {
+                            id: orderInfo
                             width: parent.width / 2
                             color: "#696969"
                             renderType: Text.NativeRendering
-                            text: qsTr("Nick") + "\n" + qsTr("Table 7")
+                            text: " "
                         }
+                    }
+                    
+                    Component.onCompleted: {
+                        var content = JSON.parse(model.content);
+                        orderInfo.text = qsTr("Nick") + "\n" + qsTr("Table ") + content.table_number
                     }
                 }
                 
@@ -151,7 +158,8 @@ ApplicationWindow {
                                                                                            cookingTime: orderItem.cookingTime, 
                                                                                            mass: orderItem.mass, 
                                                                                            startTime: orderItem.startTime, 
-                                                                                           count: orderItem.count
+                                                                                           count: orderItem.count, 
+                                                                                           table_number: orderItem.table_number
                                                                                        })
                 }
             }
