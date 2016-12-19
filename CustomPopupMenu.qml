@@ -42,7 +42,6 @@ Popup {
             anchors.margins: 10
             anchors.leftMargin: 30
             color: "#f7f7f7"  // Задаём цвет области
-            height: childrenRect.height
             
             // Задаём сообщение диалогового окна
             Row {

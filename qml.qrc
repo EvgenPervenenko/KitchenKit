@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
         <file>RecipesModel.qml</file>
         <file>RecipesModel2.qml</file>
         <file>Tools.qml</file>
@@ -13,5 +12,6 @@
         <file>pics/pancakes.jpg</file>
         <file>pics/vegetable-soup.jpg</file>
         <file>CustomPopupMenu.qml</file>
+        <file>KitchenKit.qml</file>
     </qresource>
 </RCC>

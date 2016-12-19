@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.3
 Item {
     width: 640
     height: 480
-    property alias button1: button1
     property alias listView1: listView1
     
     
@@ -58,12 +57,6 @@ Item {
                             colorCode: "green"
                         }
                     }
-                }
-                
-                Button {
-                    id: button1
-                    text: "Click for example"
-                    Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                 }
             }
         }
