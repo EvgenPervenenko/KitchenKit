@@ -128,11 +128,12 @@ ApplicationWindow {
             }
         }
         
-        //main model for adding views
+        //Главная модель для добавления заказов
         listView1.model: ListModel{
             id: mainModel
         }
         
+        //Функция показывает диалог с деталями заказа
         function showDialog(title, recipeImg, method, ingredients, item, cookingTime){
             detailsDialog.show(title, recipeImg, method, ingredients, item, cookingTime)
         }
